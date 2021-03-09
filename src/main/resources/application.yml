@@ -1,0 +1,37 @@
+# 配置文件的":"和对应的值一定要有空格
+# web应用的端口
+server:
+  port: 8000
+spring:
+  datasource: # 连接池的配置
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/detect_webshell?characterEncoding=utf8&useSSL=true
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+
+  resources: # 静态文件位置
+    static-locations: classpath:templates/
+
+  thymeleaf: # 配置thymeleaf，关闭其自动缓存
+    cache: false
+
+  devtools:
+    restart:
+      enabled: true #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: resources/** #静态页面保存回重新加载，应用不会重启
+
+
+mybatis: #mybatis的配置文件
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.detectwebshell.pojo
+
+logging: #显示执行的sql语句内容
+  level:
+    com:
+      myblog:
+        mapper: debug
