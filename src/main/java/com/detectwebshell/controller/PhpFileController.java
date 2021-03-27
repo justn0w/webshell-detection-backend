@@ -1,4 +1,4 @@
-package com.detectwebshell.Controller;
+package com.detectwebshell.controller;
 
 import com.detectwebshell.pojo.PhpFile;
 import com.detectwebshell.service.PhpFileService;

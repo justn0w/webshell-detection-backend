@@ -9,7 +9,25 @@ public class ResultVO {
 
     private String phpFileName;
     private String md5Value;
-    private Double probability;
+    private Double webshell;
+    private Double normal;
+
+    public Double getWebshell() {
+        return webshell;
+    }
+
+    public void setWebshell(Double webshell) {
+        this.webshell = webshell;
+    }
+
+    public Double getNormal() {
+        return normal;
+    }
+
+    public void setNormal(Double normal) {
+        this.normal = normal;
+    }
+
     private String resName;
     private Integer resType;
     private Integer statusCode;
@@ -63,12 +81,5 @@ public class ResultVO {
         this.md5Value = md5Value;
     }
 
-    public Double getProbability() {
-        return probability;
-    }
-
-    public void setProbability(Double probability) {
-        this.probability = probability;
-    }
 
 }

@@ -49,19 +49,42 @@ public class UploadServiceImpl implements UploadService {
         HttpEntity<MultiValueMap<String, Object>> requestEntity  = new HttpEntity<>(multiValueMap, headers);
         DetectResult detectResult = restTemplate.postForObject(url, requestEntity, DetectResult.class);
 
+
+
         ResultVO res = new ResultVO();
-        res.setMessage("sucess");
         res.setPhpFileName(file.getOriginalFilename());
-        Double probability = detectResult.getProbability();
-        if (probability > 0.5) {
-            res.setProbability(1 - probability);
+        if (detectResult.getCode() == 0) {
+            res.setStatusCode(0);
+            res.setMessage("编译错误");
+            return res;
+        }
+
+
+        Double webshell = detectResult.getWebshell();
+
+        Double normal = detectResult.getNormal();
+
+        res.setMessage("sucess");
+        res.setWebshell(webshell);
+        res.setNormal(normal);
+        if (webshell > normal) {
             res.setResName("Webshell");
             res.setResType(0);
         } else {
-            res.setProbability(1 - probability);
             res.setResName("正常网页脚本");
             res.setResType(1);
         }
+
+        res.setStatusCode(1);
+//        if (probability > 0.5) {
+//            res.setProbability(1 - probability);
+//            res.setResName("Webshell");
+//            res.setResType(0);
+//        } else {
+//            res.setProbability(1 - probability);
+//            res.setResName("正常网页脚本");
+//            res.setResType(1);
+//        }
         return res;
     }
 }
